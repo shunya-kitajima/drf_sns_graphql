@@ -82,13 +82,6 @@ class UpdateProfileMutation(relay.ClientIDMutation):
         return UpdateProfileMutation(profile=profile)
 
 
-class Mutation(graphene.ObjectType):
-    create_user = CreateUserMutation.Field()
-    token_auth = graphql_jwt.ObtainJSONWebToken.Field()
-    create_profile = CreateProfileMutation.Field()
-    update_profile = UpdateProfileMutation.Field()
-
-
 class Query(graphene.ObjectType):
     profile = graphene.Field(ProfileNode)
     all_users = DjangoFilterConnectionField(UserNode)
@@ -105,4 +98,14 @@ class Query(graphene.ObjectType):
     @login_required
     def resolve_all_profiles(self, info, **kwargs):
         return Profile.objects.all()
+
+
+class Mutation(graphene.ObjectType):
+    create_user = CreateUserMutation.Field()
+    token_auth = graphql_jwt.ObtainJSONWebToken.Field()
+    create_profile = CreateProfileMutation.Field()
+    update_profile = UpdateProfileMutation.Field()
+
+
+
 
