@@ -1,3 +1,4 @@
+import graphene
 from graphene_django import DjangoObjectType
 from graphene_django.filter import DjangoFilterConnectionField
 from graphene import relay
@@ -24,4 +25,24 @@ class ProfileNode(DjangoObjectType):
             "user_prof__username": ["icontains"],
         }
         interfaces = (relay.Node,)
+
+
+class CreateUserMutation(relay.ClientIDMutation):
+    class Input:
+        username = graphene.String(required=True)
+        password = graphene.String(required=True)
+        email = graphene.String(required=True)
+
+    user = graphene.Field(UserNode)
+
+    def mutate_and_get_payload(root, info, **input):
+        user = User(
+            username=input.get("username"),
+            email=input.get("email"),
+        )
+        user.set_password(input.get("password"))
+        user.save()
+
+        return CreateUserMutation(user=user)
+
 
