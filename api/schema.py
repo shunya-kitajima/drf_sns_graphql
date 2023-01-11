@@ -17,5 +17,11 @@ class UserNode(DjangoObjectType):
         interfaces = (relay.Node,)
 
 
-
+class ProfileNode(DjangoObjectType):
+    class Meta:
+        model = Profile
+        filter_fields = {
+            "user_prof__username": ["icontains"],
+        }
+        interfaces = (relay.Node,)
 
