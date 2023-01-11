@@ -59,6 +59,13 @@ GRAPHQL_JWT = {
     "JWT_EXPIRATION_DELTA": timedelta(minutes=30)
 }
 
+GRAPHENE = {
+    "SCHEMA": "sns_graphql.schema.schema",
+    "MIDDLEWARE": [
+        "graphql_jwt.middleware.JSONWebTokenMiddleware",
+    ],
+}
+
 ROOT_URLCONF = "sns_graphql.urls"
 
 TEMPLATES = [
