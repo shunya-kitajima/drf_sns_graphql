@@ -59,6 +59,10 @@ GRAPHQL_JWT = {
     "JWT_EXPIRATION_DELTA": timedelta(minutes=30)
 }
 
+CORS_ORIGIN_WHITELIST = [
+    "http://localhost:3000/"
+]
+
 GRAPHENE = {
     "SCHEMA": "sns_graphql.schema.schema",
     "MIDDLEWARE": [
