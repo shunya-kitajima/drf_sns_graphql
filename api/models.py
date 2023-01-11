@@ -6,7 +6,7 @@ class Profile(models.Model):
     user_prof = models.OneToOneField(
         User,
         related_name="profile",
-        on_delete=models.CASCADE()
+        on_delete=models.CASCADE
     )
     followings = models.ManyToManyField(
         User,
