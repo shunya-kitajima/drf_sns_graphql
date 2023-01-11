@@ -89,5 +89,20 @@ class Mutation(graphene.ObjectType):
     update_profile = UpdateProfileMutation.Field()
 
 
+class Query(graphene.ObjectType):
+    profile = graphene.Field(ProfileNode)
+    all_users = DjangoFilterConnectionField(UserNode)
+    all_profiles = DjangoFilterConnectionField(ProfileNode)
 
+    @login_required
+    def resolve_profile(self, info, **kwargs):
+        return Profile.objects.get(user_prof=info.context.user.id)
+
+    @login_required
+    def resolve_all_users(self, info, **kwargs):
+        return User.objects.all()
+
+    @login_required
+    def resolve_all_profiles(self, info, **kwargs):
+        return Profile.objects.all()
 
