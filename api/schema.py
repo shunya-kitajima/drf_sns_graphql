@@ -7,3 +7,15 @@ from graphql_relay import from_global_id
 from django.contrib.auth.models import User
 from .models import Profile
 
+
+class UserNode(DjangoObjectType):
+    class Meta:
+        model = User
+        filter_fields = {
+            "username": ["exact", "icontains"],
+        }
+        interfaces = (relay.Node,)
+
+
+
+
